@@ -9,6 +9,21 @@ find_package(raylib REQUIRED)
 file(GLOB SOURCES *.cpp)
 
 # Używamy zmiennej SOURCES zamiast wpisywania nazw ręcznie
-add_executable(MathSnake ${SOURCES})
+add_executable(MathSnake ${SOURCES}
+        Game.cpp
+        Game.h
+        Window.h
+        Entity.cpp
+        Entity.h
+        Snake.cpp
+        Snake.h
+        Apple.cpp
+        Apple.h
+        Grid.cpp
+        Grid.h
+        Tile.cpp
+        Tile.h
+        UI.cpp
+        UI.h)
 
 target_link_libraries(MathSnake raylib m pthread dl rt X11)
