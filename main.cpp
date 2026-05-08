@@ -1,21 +1,14 @@
 #include "raylib.h"
+#include "Game.h"
 
 int main() {
-    // Inicjalizacja okna
-    InitWindow(800, 450, "MathSnake - Test");
-    SetTargetFPS(60);
 
-    while (!WindowShouldClose()) {
-        // Logika (pusta na razie)
+    Game MS;
 
-        // Rysowanie
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("MathSnake dziala na Chromebooku!", 150, 200, 20, DARKGRAY);
-        DrawFPS(10, 10);
-        EndDrawing();
+    while (!WindowShouldClose())
+    {
+        MS.Draw();
     }
 
-    CloseWindow();
     return 0;
 }

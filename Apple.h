@@ -2,12 +2,16 @@
 #define MATHSNAKE_APPLE_H
 
 #include "Entity.h"
-class Apple {
+class Apple : public Entity {
+
 protected:
     char type;
+
 public:
-    Apple() : Entity(color, pos) {};
-    Apple(char type) : Entity(color, pos), type(type) {};
+    Apple() : Entity(RED) {};
+    //Apple(char type) : Entity(color, pos), type(type) {};
+
+    void DrawEntity() override;
 
 };
 

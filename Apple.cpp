@@ -1,5 +1,5 @@
-//
-// Created by skreinek on 5/7/26.
-//
-
 #include "Apple.h"
+
+void Apple::DrawEntity() {
+
+};

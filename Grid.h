@@ -4,26 +4,42 @@
 #include "raylib.h"
 
 class Grid {
+
+    friend class Game;
+
 protected:
     int dim; //dimention
     float tileSize;
     bool** map;
-    bool& start, center;
+    //bool& start, center;
     Color color_1, color_2;
+
 public:
-    Grid(int dim) : dim(dim){
+    Grid(int dim) : dim(dim), tileSize(0)
+    {
         //tileSize
-        bool* map = new bool[dim]; //true - tile is occupied, false = tile is free
-        for(int i=0; i<dim; i++)
+        map = new bool*[dim]; //true - tile is occupied, false = tile is free
+        for(int i=0; i<dim; i++) {
+            map[i] = new bool[dim];
             for(int j=0; j<dim; j++)
-                map[j][i] = false; 
+                map[i][j] = false;
+        }
+
         //tile start    
         //tile center
-        //color_1
-        //color_2
+        color_1 = GetColor(0x00d48fff);
+        color_2 = GetColor(0x00c363ff);
     }
+    ~Grid() {
+        for(int i=0; i<dim; i++)
+            delete[] map[i];
+        delete[] map;
+
+        map = nullptr;
+    };
+
+    void Draw();
 
 };
-
 
 #endif //MATHSNAKE_GRID_H

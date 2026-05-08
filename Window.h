@@ -1,14 +1,22 @@
 #ifndef MATHSNAKE_WINDOW_H
 #define MATHSNAKE_WINDOW_H
 
+#include "raylib.h"
 
 class Window {
+
+    friend class Game;
+
 protected:
     int res; //resolution
-    int fps;
-public:
-    Window(int res, int fps) : res(res), fps(fps) {};
-};
 
+public:
+    Window(int res) : res(res)
+    {
+        InitWindow(res, res, "MathSnake - Test");
+        SetTargetFPS(60);
+    };
+
+};
 
 #endif //MATHSNAKE_WINDOW_H

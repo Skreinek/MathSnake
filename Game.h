@@ -7,16 +7,26 @@
 #include "Grid.h"
 
 class Game {
+
+    friend class Window;
+    friend class Snake;
+    friend class Apple;
+    friend class Grid;
+
 protected:
     Window window;
     Snake snake;
     Apple apple;
     Grid grid;
+
 public:
-    Game(){
-    }
+    Game() : window(900), snake(), apple(), grid(15)
+    {
+        grid.tileSize = (float)window.res/grid.dim;
+    };
+
+    void Draw();
+
 };
-
-
 
 #endif //MATHSNAKE_GAME_H

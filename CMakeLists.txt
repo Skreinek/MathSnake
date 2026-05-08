@@ -5,11 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(raylib REQUIRED)
 
-# AUTOMATYZACJA: Znajdź wszystkie pliki .cpp w bieżącym folderze
-file(GLOB SOURCES *.cpp)
-
 # Używamy zmiennej SOURCES zamiast wpisywania nazw ręcznie
-add_executable(MathSnake ${SOURCES}
+add_executable(MathSnake
+        main.cpp
         Game.cpp
         Game.h
         Window.h
