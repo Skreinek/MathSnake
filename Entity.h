@@ -1,12 +1,12 @@
-//
-// Created by skreinek on 5/7/26.
-//
-
 #ifndef MATHSNAKE_ENTITY_H
 #define MATHSNAKE_ENTITY_H
 
-
 class Entity {
+protected:
+    Vector2 pos; //position
+    Color color;
+public:
+    Entity(Vector2 pos, Color color) : pos(pos), color(color) {};
 };
 
 

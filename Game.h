@@ -1,7 +1,3 @@
-//
-// Created by skreinek on 5/7/26.
-//
-
 #ifndef MATHSNAKE_GAME_H
 #define MATHSNAKE_GAME_H
 
@@ -11,12 +7,16 @@
 #include "Grid.h"
 
 class Game {
-public:
+protected:
     Window window;
     Snake snake;
     Apple apple;
     Grid grid;
+public:
+    Game(){
+    }
 };
+
 
 
 #endif //MATHSNAKE_GAME_H

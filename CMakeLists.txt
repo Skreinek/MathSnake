@@ -21,8 +21,6 @@ add_executable(MathSnake ${SOURCES}
         Apple.h
         Grid.cpp
         Grid.h
-        Tile.cpp
-        Tile.h
         UI.cpp
         UI.h)
 

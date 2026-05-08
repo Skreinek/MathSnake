@@ -1,12 +1,14 @@
-//
-// Created by skreinek on 5/7/26.
-//
-
 #ifndef MATHSNAKE_APPLE_H
 #define MATHSNAKE_APPLE_H
 
-
+#include "Entity.h"
 class Apple {
+protected:
+    char type;
+public:
+    Apple() : Entity(color, pos) {};
+    Apple(char type) : Entity(color, pos), type(type) {};
+
 };
 
 

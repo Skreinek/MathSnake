@@ -1,7 +1,3 @@
-//
-// Created by skreinek on 5/7/26.
-//
-
 #ifndef MATHSNAKE_WINDOW_H
 #define MATHSNAKE_WINDOW_H
 
