@@ -7,18 +7,18 @@ class Grid {
 
     friend class Game;
     friend class Snake;
+    friend class Apple;
 
 protected:
-    int dim; //dimention
+    int dim; //dimention - odd number prefered
     float tileSize;
+    Vector2 center;
     bool** map;
-    //bool& start, center;
     Color color_1, color_2;
 
 public:
-    Grid(int dim) : dim(dim), tileSize(0)
+    Grid(int dim) : dim(dim), tileSize(0), color_1(GetColor(0x00d48fff)), color_2(GetColor(0x00c363ff))
     {
-        //tileSize
         map = new bool*[dim]; //true - tile is occupied, false = tile is free
         for(int i=0; i<dim; i++) {
             map[i] = new bool[dim];
@@ -26,11 +26,12 @@ public:
                 map[i][j] = false;
         }
 
-        //tile start    
-        //tile center
-        color_1 = GetColor(0x00d48fff);
-        color_2 = GetColor(0x00c363ff);
+        int intCenter = dim/2 + 1;
+        center.x = (float)intCenter;
+        center.y = (float)intCenter;
+
     }
+
     ~Grid() {
         for(int i=0; i<dim; i++)
             delete[] map[i];

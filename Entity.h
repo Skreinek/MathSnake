@@ -14,7 +14,7 @@ public:
     Entity(Color color) : color(color), pos({0.0,0.0}) {};
     virtual ~Entity() = default;
 
-    void virtual DrawEntity(float size) = 0;
+    void virtual DrawEntity() = 0;
 
 };
 

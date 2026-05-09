@@ -2,16 +2,21 @@
 #define MATHSNAKE_APPLE_H
 
 #include "Entity.h"
+#include "Grid.h"
+
 class Apple : public Entity {
 
+    friend class Game;
+
 protected:
+    const Grid& grid;
     char type;
 
 public:
-    Apple() : Entity(RED) {};
+    Apple(const Grid& grid, Vector2 pos) : grid(grid), Entity(pos, BLUE) {};
     //Apple(char type) : Entity(color, pos), type(type) {};
 
-    void DrawEntity(float size) override;
+    void DrawEntity() override;
 
 };
 

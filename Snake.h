@@ -11,22 +11,23 @@ class Snake : public Entity {
     friend class Game;
 
 protected:
-    Grid& grid;
+    const Grid& grid;
     int length;
     char direction; //WASD layout
     float speed;
     Vector2 lastHeadPos;
+    Vector2 lastTailPos;
     std::vector<Vector2> tail;
 
 public:
-    Snake(Grid& grid) : Entity({1.0,2.0}, WHITE), length(1), direction('S'), speed(1.0), grid(grid),
+    Snake(const Grid& grid) : Entity({1.0,2.0}, Fade(WHITE, 0.5f)), length(1), direction('S'), speed(0.2), grid(grid),
     lastHeadPos({pos.x, pos.y - 1}) {
         tail.push_back(lastHeadPos);
     };
 
+    void DrawEntity() override;
     void CalculateTail();
-    void DrawEntity(float size) override;
-
+    void Grow();
 };
 
 #endif //MATHSNAKE_SNAKE_H
