@@ -7,25 +7,30 @@
 #include "Grid.h"
 
 class Game {
-
     friend class Window;
+    friend class Grid;
     friend class Snake;
     friend class Apple;
-    friend class Grid;
 
 protected:
     Window window;
+    Grid grid;
     Snake snake;
     Apple apple;
-    Grid grid;
+
+    double currentTime, lastTime;
 
 public:
-    Game() : window(900), snake(), apple(), grid(15)
+    Game() : window(900), grid(15), snake(grid), apple(), currentTime(GetTime()), lastTime(GetTime())
     {
         grid.tileSize = (float)window.res/grid.dim;
     };
 
-    void Draw();
+    bool TimeCycle();
+    void DrawGame();
+    void MoveSnake();
+    void checkSnakeCollisions();
+
 
 };
 

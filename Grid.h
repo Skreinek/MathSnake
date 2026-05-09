@@ -6,6 +6,7 @@
 class Grid {
 
     friend class Game;
+    friend class Snake;
 
 protected:
     int dim; //dimention

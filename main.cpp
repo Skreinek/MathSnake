@@ -7,7 +7,7 @@ int main() {
 
     while (!WindowShouldClose())
     {
-        MS.Draw();
+        MS.DrawGame();
     }
 
     return 0;

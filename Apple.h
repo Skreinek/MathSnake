@@ -11,7 +11,7 @@ public:
     Apple() : Entity(RED) {};
     //Apple(char type) : Entity(color, pos), type(type) {};
 
-    void DrawEntity() override;
+    void DrawEntity(float size) override;
 
 };
 

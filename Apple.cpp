@@ -1,5 +1,5 @@
 #include "Apple.h"
 
-void Apple::DrawEntity() {
+void Apple::DrawEntity(float size) {
 
 };
