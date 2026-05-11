@@ -20,13 +20,14 @@ protected:
     Snake snake;
     Apple* apple;
 
+    bool isGameOver;
     double currentTime, lastTime;
     std::random_device rd;
     std::mt19937 gen;
 
 public:
     Game() : window(900), grid(15), snake(grid), apple(nullptr), currentTime(GetTime()), lastTime(GetTime()),
-    gen(rd())
+    gen(rd()), isGameOver(false)
     {
         grid.tileSize = (float)window.res/grid.dim;
     };
@@ -38,6 +39,7 @@ public:
     void CreateApple();
     bool CheckAppleEaten();
     void UpdateFreeTiles();
+    bool GameOver();
 
 
 };

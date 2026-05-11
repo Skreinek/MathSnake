@@ -10,9 +10,15 @@ void Game::DrawGame() {
             CreateApple();
         else
             apple->DrawEntity();
+
         MoveSnake();
+        if (snake.CheckCollision())
+        { isGameOver = true; return; }
+
+    //Conditions
         if (CheckAppleEaten())
             snake.Grow();
+
         snake.DrawEntity();
 
     DrawText(TextFormat("Pozycja X: %.2f", snake.pos.x), 10, 10, 20, BLACK);
@@ -48,8 +54,8 @@ void Game::MoveSnake() {
         }
 
         lastTime = currentTime;
-        snake.lastTailPos = snake.tail[snake.length-1];
         snake.CalculateTail();
+        UpdateFreeTiles();
     }
 }
 
@@ -98,4 +104,8 @@ bool Game::CheckAppleEaten() {
         return true;
     }
     return false;
+}
+
+bool Game::GameOver() {
+    return isGameOver;
 }

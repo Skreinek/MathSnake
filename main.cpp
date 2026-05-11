@@ -5,7 +5,7 @@ int main() {
 
     Game MS;
 
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && !MS.GameOver())
     {
         MS.DrawGame();
     }
