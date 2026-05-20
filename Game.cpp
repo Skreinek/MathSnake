@@ -1,31 +1,43 @@
 #include "Game.h"
 #include "raylib.h"
 
-void Game::DrawGame() {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
+void Game::DoStart() {
+    grid.Draw();
+    snake.DrawEntity();
+    if (!ui.DrawStart())
+        gamePhase++;
+}
 
-        grid.Draw();
-        if(!apple)
-            CreateApple();
-        else
-            apple->DrawEntity();
+void Game::DoGame() {
+    grid.Draw();
 
-        MoveSnake();
-        if (snake.CheckCollision())
-        { isGameOver = true; return; }
+    if(!apple)
+        CreateApple();
+    else
+        apple->DrawEntity();
 
-    //Conditions
-        if (CheckAppleEaten())
-            snake.Grow();
+    MoveSnake();
 
-        snake.DrawEntity();
+    if (snake.IsColliding())
+    { gamePhase++; return; }
+
+//Conditions
+    if (IsAppleEaten())
+        snake.Grow();
+
+    snake.DrawEntity();
 
     DrawText(TextFormat("Pozycja X: %.2f", snake.pos.x), 10, 10, 20, BLACK);
     DrawText(TextFormat("Pozycja Y: %.2f", snake.pos.y), 10, 40, 20, BLACK);
     DrawText(TextFormat("Dlugosc weza: %.d", snake.length), 10, 70, 20, BLACK);
-    EndDrawing();
 };
+
+void Game::DoGameOver() {
+    grid.Draw();
+    snake.DrawEntity();
+    if (!ui.DrawGameOver())
+        gamePhase++;
+}
 
 void Game::MoveSnake() {
 
@@ -97,7 +109,7 @@ void Game::CreateApple() {
         apple = new Apple(grid, getRandomPosition());
 }
 
-bool Game::CheckAppleEaten() {
+bool Game::IsAppleEaten() {
     if(snake.pos.x == apple->pos.x && snake.pos.y == apple->pos.y) {
         delete apple;
         apple = nullptr;
@@ -106,6 +118,6 @@ bool Game::CheckAppleEaten() {
     return false;
 }
 
-bool Game::GameOver() {
-    return isGameOver;
+int Game::GetGamePhase() {
+    return gamePhase;
 }

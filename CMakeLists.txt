@@ -20,6 +20,8 @@ add_executable(MathSnake
         Grid.cpp
         Grid.h
         UI.cpp
-        UI.h)
+        UI.h
+        Button.h
+        Button.cpp)
 
 target_link_libraries(MathSnake raylib m pthread dl rt X11)

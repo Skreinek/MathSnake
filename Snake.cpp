@@ -30,7 +30,7 @@ void Snake::Grow() {
     tail.push_back(lastTailPos);
 }
 
-bool Snake::CheckCollision() {
+bool Snake::IsColliding() {
     for (int i=0; i<length-1; i++) {
         if (pos.x == tail[i].x && pos.y== tail[i].y)
             return true;

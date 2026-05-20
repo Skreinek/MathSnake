@@ -31,7 +31,7 @@ public:
     void DrawEntity() override;
     void CalculateTail();
     void Grow();
-    bool CheckCollision();
+    bool IsColliding();
 
 };
 
