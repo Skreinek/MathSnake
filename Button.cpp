@@ -12,5 +12,6 @@ bool Button::wasClicked() {
 
 void Button::Draw() {
     DrawRectangle(pos.x, pos.y, size.x, size.y, color);
-    DrawText(text.c_str(), pos.x, pos.y, size.y, WHITE);
+    int textSize = MeasureText(text.c_str(), font);
+    DrawText(text.c_str(), pos.x + size.x/2 - (float)textSize/2.0, pos.y + size.y/2 - (float)font/2.2, font, WHITE);
 }

@@ -2,13 +2,17 @@
 
 void Snake::DrawEntity() {
     float offset = grid.tileSize/2;
-    DrawCircle(pos.x*grid.tileSize + offset, pos.y*grid.tileSize + offset ,offset, color);
+    DrawCircle(pos.x*grid.tileSize + offset, pos.y*grid.tileSize + offset ,offset, WHITE);
 
+    float shrink = -offset/2 / length;
+    int colorOffset = 255/5 /length;
     for(int i = 0; i<length; i++) {
+        color.r = (i+1)* (255 - colorOffset);
+
         if (i != length-1)
-            DrawCircle(tail[i].x*grid.tileSize + offset, tail[i].y*grid.tileSize + offset ,offset, RED);
-        else
-            DrawCircle(tail[i].x*grid.tileSize + offset, tail[i].y*grid.tileSize + offset ,offset, WHITE);
+            DrawCircle(tail[i].x*grid.tileSize + offset, tail[i].y*grid.tileSize + offset ,offset + shrink * (i+1), color);
+            else
+            DrawCircle(tail[i].x*grid.tileSize + offset, tail[i].y*grid.tileSize + offset ,offset + shrink * (i+1), color);
 
     }
 };
@@ -28,12 +32,4 @@ void Snake::CalculateTail() {
 void Snake::Grow() {
     length++;
     tail.push_back(lastTailPos);
-}
-
-bool Snake::IsColliding() {
-    for (int i=0; i<length-1; i++) {
-        if (pos.x == tail[i].x && pos.y== tail[i].y)
-            return true;
-    }
-    return false;
 }

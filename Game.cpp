@@ -3,13 +3,14 @@
 
 void Game::DoStart() {
     grid.Draw();
-    snake.DrawEntity();
+    snake->DrawEntity();
     if (!ui.DrawStart())
         gamePhase++;
 }
 
 void Game::DoGame() {
     grid.Draw();
+    ui.DrawGame();
 
     if(!apple)
         CreateApple();
@@ -18,55 +19,65 @@ void Game::DoGame() {
 
     MoveSnake();
 
-    if (snake.IsColliding())
+    if (IsSnakeColliding())
     { gamePhase++; return; }
 
 //Conditions
     if (IsAppleEaten())
-        snake.Grow();
+        snake->Grow();
 
-    snake.DrawEntity();
+    snake->DrawEntity();
 
-    DrawText(TextFormat("Pozycja X: %.2f", snake.pos.x), 10, 10, 20, BLACK);
-    DrawText(TextFormat("Pozycja Y: %.2f", snake.pos.y), 10, 40, 20, BLACK);
-    DrawText(TextFormat("Dlugosc weza: %.d", snake.length), 10, 70, 20, BLACK);
+    if (snake->length == grid.dim*grid.dim)
+    { gamePhase = 3; return; }
+
+    DrawText(TextFormat("Pozycja X: %.2f", snake->pos.x), 10, 10, 20, BLACK);
+    DrawText(TextFormat("Pozycja Y: %.2f", snake->pos.y), 10, 40, 20, BLACK);
+    DrawText(TextFormat("Dlugosc weza: %.d", snake->length), 10, 70, 20, BLACK);
 };
 
 void Game::DoGameOver() {
     grid.Draw();
-    snake.DrawEntity();
-    if (!ui.DrawGameOver())
-        gamePhase++;
+    snake->DrawEntity();
+    if (!ui.DrawGameOver(snake->length-2))
+        gamePhase = 0;
+}
+
+void Game::DoGameWon() {
+    grid.Draw();
+    snake->DrawEntity();
+    if (!ui.DrawGameWon())
+        gamePhase = 0;
 }
 
 void Game::MoveSnake() {
 
-    if (IsKeyPressed(KEY_W) && snake.direction != 'S') snake.direction = 'W';
-    if (IsKeyPressed(KEY_S) && snake.direction != 'W') snake.direction = 'S';
-    if (IsKeyPressed(KEY_A) && snake.direction != 'D') snake.direction = 'A';
-    if (IsKeyPressed(KEY_D) && snake.direction != 'A') snake.direction = 'D';
+    if (IsKeyPressed(KEY_W) && snake->direction != 'S') snake->direction = 'W';
+    if (IsKeyPressed(KEY_S) && snake->direction != 'W') snake->direction = 'S';
+    if (IsKeyPressed(KEY_A) && snake->direction != 'D') snake->direction = 'A';
+    if (IsKeyPressed(KEY_D) && snake->direction != 'A') snake->direction = 'D';
 
     if ( TimeCycle() ) {
 
-        snake.lastHeadPos = snake.pos;
+        snake->lastHeadPos = snake->pos;
 
-        switch (snake.direction) {
+        switch (snake->direction) {
             case 'W':
-                snake.pos.y--;
+                snake->pos.y--;
                 break;
             case 'S':
-                snake.pos.y++;
+                snake->pos.y++;
                 break;
             case 'A':
-                snake.pos.x--;
+                snake->pos.x--;
                 break;
             case 'D':
-                snake.pos.x++;
+                snake->pos.x++;
                 break;
         }
 
         lastTime = currentTime;
-        snake.CalculateTail();
+        snake->CalculateTail();
         UpdateFreeTiles();
     }
 }
@@ -74,7 +85,7 @@ void Game::MoveSnake() {
 bool Game::TimeCycle() {
     currentTime = GetTime();
 
-    if (currentTime - lastTime >= snake.speed)
+    if (currentTime - lastTime >= snake->speed)
         return true;
     return false;
 }
@@ -93,24 +104,30 @@ Vector2 Game::getRandomPosition() {
 }
 
 void Game::UpdateFreeTiles() {
+    if(snake->pos.x >= grid.dim || snake->pos.y >= grid.dim
+    || snake->pos.x < 0 || snake->pos.y < 0) {
+        gamePhase++;
+        return;
+    }
+
     for (int i=0; i<grid.dim; i++)
         for (int j=0; j<grid.dim; j++)
             grid.map[i][j] = false;
 
-    for (int i=0; i<snake.length; i++) {
-        grid.map[(int)snake.tail[i].x][(int)snake.tail[i].y] = true;
+    for (int i=0; i<snake->length; i++) {
+        grid.map[(int)snake->tail[i].x][(int)snake->tail[i].y] = true;
     }
 }
 
 void Game::CreateApple() {
-    if(snake.length == 1)
+    if(snake->length == 1)
         apple = new Apple(grid, {grid.center.x + 2, grid.center.y});
     else
         apple = new Apple(grid, getRandomPosition());
 }
 
 bool Game::IsAppleEaten() {
-    if(snake.pos.x == apple->pos.x && snake.pos.y == apple->pos.y) {
+    if(snake->pos.x == apple->pos.x && snake->pos.y == apple->pos.y) {
         delete apple;
         apple = nullptr;
         return true;
@@ -120,4 +137,19 @@ bool Game::IsAppleEaten() {
 
 int Game::GetGamePhase() {
     return gamePhase;
+}
+
+bool Game::IsSnakeColliding() {
+        for (int i=0; i<snake->length; i++) {
+            if (snake->pos.x == snake->tail[i].x && snake->pos.y == snake->tail[i].y)
+                return true;
+            if (snake->pos.x == grid.dim + 1 && snake->pos.y == grid.dim + 1)
+                return true;
+        }
+        return false;
+}
+
+void Game::ResetSnake() {
+    delete snake;
+    snake = new Snake(grid);
 }

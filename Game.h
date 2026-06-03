@@ -18,7 +18,7 @@ class Game {
 protected:
     Window window;
     Grid grid;
-    Snake snake;
+    Snake* snake;
     Apple* apple;
     UI ui;
 
@@ -28,9 +28,10 @@ protected:
     std::mt19937 gen;
 
 public:
-    Game() : window(900), grid(15), snake(grid), apple(nullptr), currentTime(GetTime()), lastTime(GetTime()),
+    Game() : window(900), ui(window.res), grid(15), snake(nullptr), apple(nullptr), currentTime(GetTime()), lastTime(GetTime()),
     gen(rd()), gamePhase(0)
     {
+        snake = new Snake(grid);
         grid.tileSize = (float)window.res/grid.dim;
     };
 
@@ -39,11 +40,14 @@ public:
     void DoStart();
     void DoGame();
     void DoGameOver();
+    void DoGameWon();
     void MoveSnake();
+    bool IsSnakeColliding();
     void CreateApple();
     bool IsAppleEaten();
     void UpdateFreeTiles();
     int GetGamePhase();
+    void ResetSnake();
 
 
 };

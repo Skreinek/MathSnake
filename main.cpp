@@ -1,7 +1,5 @@
 #include "raylib.h"
 #include "Game.h"
-#include "UI.h"
-
 int main() {
 
     Game MS;
@@ -18,7 +16,11 @@ int main() {
             case 2:
                 MS.DoGameOver();
                 break;
+            case 3:
+                MS.DoGameWon();
+                break;
             default:
+                MS.ResetSnake();
                 MS.DoStart();
                 break;
         }

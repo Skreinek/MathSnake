@@ -6,6 +6,7 @@
 class Window {
 
     friend class Game;
+    friend class UI;
 
 protected:
     int res; //resolution

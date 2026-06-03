@@ -13,10 +13,11 @@ protected:
     const std::string text;
     Vector2 pos, size;
     bool isClicked;
+    int font;
 
 public:
-    Button(const std::string text, Vector2 pos, Vector2 size, Color color) : text(text), color(color), isClicked(false),
-    pos(pos), size(size) {};
+    Button(const std::string text, Vector2 pos, Vector2 size, int font, Color color) : text(text), color(color), isClicked(false),
+    pos({pos.x - size.x/2, pos.y - size.y/2}), size(size), font(font) {};
 
     bool wasClicked();
     void Draw();

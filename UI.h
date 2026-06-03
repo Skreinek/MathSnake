@@ -1,24 +1,27 @@
 #ifndef MATHSNAKE_UI_H
 #define MATHSNAKE_UI_H
 
+#include "Window.h"
 #include "Button.h"
 
-class UI {
+class UI{
 
     friend class Game;
 
 protected:
+    int& res;
     Button* startButton;
     Button* tryAgainButton;
 public:
-    UI(){
-        startButton = new Button("Start", {300, 300},{400,120} , RED);
-        tryAgainButton = new Button("Try again", {300, 300},{400,120} , RED);
+    UI(int& res) : res(res){
+        startButton = new Button("Start", {(float)res/2, (float)res/2},{350,120} , 100, RED);
+        tryAgainButton = new Button("Try again", {(float)res/2, (float)res/1.3f},{450,120} , 80, RED);
     };
 
     bool DrawStart();
-    bool DrawGame();
-    bool DrawGameOver();
+    void DrawGame();
+    bool DrawGameOver(int score);
+    bool DrawGameWon();
 };
 
 

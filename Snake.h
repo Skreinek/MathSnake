@@ -20,7 +20,7 @@ protected:
     std::vector<Vector2> tail;
 
 public:
-    Snake(const Grid& grid) : Entity({1.0,2.0}, Fade(WHITE, 0.5f)), length(2), direction('S'), speed(0.2), grid(grid),
+    Snake(const Grid& grid) : Entity({1.0,2.0}, RED), length(2), direction('S'), speed(0.2), grid(grid),
     lastHeadPos({pos.x, pos.y - 1}) {
         tail.push_back(lastHeadPos);
             tail[0] = {pos.x, pos.y-1};
@@ -31,7 +31,6 @@ public:
     void DrawEntity() override;
     void CalculateTail();
     void Grow();
-    bool IsColliding();
 
 };
 
