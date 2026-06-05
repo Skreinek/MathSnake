@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "../headers/Grid.h"
 
 void Grid::Draw() {
     for(int i=0; i<dim; i++)

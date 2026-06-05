@@ -18,6 +18,14 @@ public:
         tryAgainButton = new Button("Try again", {(float)res/2, (float)res/1.3f},{450,120} , 80, RED);
     };
 
+    ~UI() {
+        delete startButton;
+        delete tryAgainButton;
+    };
+
+    UI(const UI&) = delete;
+    UI& operator=(const UI&) = delete;
+
     bool DrawStart();
     void DrawGame();
     bool DrawGameOver(int score);

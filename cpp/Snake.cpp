@@ -1,4 +1,4 @@
-#include "Snake.h"
+#include "../headers/Snake.h"
 
 void Snake::DrawEntity() {
     float offset = grid.tileSize/2;

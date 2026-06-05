@@ -8,20 +8,20 @@ find_package(raylib REQUIRED)
 # Używamy zmiennej SOURCES zamiast wpisywania nazw ręcznie
 add_executable(MathSnake
         main.cpp
-        Game.cpp
-        Game.h
-        Window.h
-        Entity.cpp
-        Entity.h
-        Snake.cpp
-        Snake.h
-        Apple.cpp
-        Apple.h
-        Grid.cpp
-        Grid.h
-        UI.cpp
-        UI.h
-        Button.h
-        Button.cpp)
+        cpp/Game.cpp
+        headers/Game.h
+        headers/Window.h
+        cpp/Entity.cpp
+        headers/Entity.h
+        cpp/Snake.cpp
+        headers/Snake.h
+        cpp/Apple.cpp
+        headers/Apple.h
+        cpp/Grid.cpp
+        headers/Grid.h
+        cpp/UI.cpp
+        headers/UI.h
+        headers/Button.h
+        cpp/Button.cpp)
 
 target_link_libraries(MathSnake raylib m pthread dl rt X11)

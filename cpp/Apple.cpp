@@ -1,4 +1,4 @@
-#include "Apple.h"
+#include "../headers/Apple.h"
 #include <cmath>
 
 void Apple::DrawEntity() {

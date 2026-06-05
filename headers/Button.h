@@ -19,6 +19,9 @@ public:
     Button(const std::string text, Vector2 pos, Vector2 size, int font, Color color) : text(text), color(color), isClicked(false),
     pos({pos.x - size.x/2, pos.y - size.y/2}), size(size), font(font) {};
 
+    Button(const Button&) = delete;
+    Button& operator=(const Button&) = delete;
+
     bool wasClicked();
     void Draw();
 };

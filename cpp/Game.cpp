@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "../headers/Game.h"
 #include "raylib.h"
 
 void Game::DoStart() {
@@ -31,9 +31,9 @@ void Game::DoGame() {
     if (snake->length == grid.dim*grid.dim)
     { gamePhase = 3; return; }
 
-    DrawText(TextFormat("Pozycja X: %.2f", snake->pos.x), 10, 10, 20, BLACK);
-    DrawText(TextFormat("Pozycja Y: %.2f", snake->pos.y), 10, 40, 20, BLACK);
-    DrawText(TextFormat("Dlugosc weza: %.d", snake->length), 10, 70, 20, BLACK);
+    //DrawText(TextFormat("Pozycja X: %.2f", snake->pos.x), 10, 10, 20, BLACK);
+    //DrawText(TextFormat("Pozycja Y: %.2f", snake->pos.y), 10, 40, 20, BLACK);
+    //DrawText(TextFormat("Dlugosc weza: %.d", snake->length), 10, 70, 20, BLACK);
 };
 
 void Game::DoGameOver() {
@@ -104,12 +104,6 @@ Vector2 Game::getRandomPosition() {
 }
 
 void Game::UpdateFreeTiles() {
-    if(snake->pos.x >= grid.dim || snake->pos.y >= grid.dim
-    || snake->pos.x < 0 || snake->pos.y < 0) {
-        gamePhase++;
-        return;
-    }
-
     for (int i=0; i<grid.dim; i++)
         for (int j=0; j<grid.dim; j++)
             grid.map[i][j] = false;
@@ -140,13 +134,15 @@ int Game::GetGamePhase() {
 }
 
 bool Game::IsSnakeColliding() {
-        for (int i=0; i<snake->length; i++) {
-            if (snake->pos.x == snake->tail[i].x && snake->pos.y == snake->tail[i].y)
-                return true;
-            if (snake->pos.x == grid.dim + 1 && snake->pos.y == grid.dim + 1)
-                return true;
-        }
-        return false;
+    if (snake->pos.x < 0 || snake->pos.x >= grid.dim ||
+        snake->pos.y < 0 || snake->pos.y >= grid.dim)
+        return true;
+
+    for (int i=0; i<snake->length; i++) {
+        if (snake->pos.x == snake->tail[i].x && snake->pos.y == snake->tail[i].y)
+            return true;
+    }
+    return false;
 }
 
 void Game::ResetSnake() {

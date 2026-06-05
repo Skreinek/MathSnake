@@ -40,6 +40,9 @@ public:
         map = nullptr;
     };
 
+    Grid(const Grid&) = delete;
+    Grid& operator=(const Grid&) = delete;
+
     void Draw();
 
 };

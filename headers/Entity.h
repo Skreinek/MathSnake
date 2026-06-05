@@ -15,6 +15,9 @@ public:
     Entity(Color color) : color(color), pos({0.0,0.0}), anim(0) {};
     virtual ~Entity() = default;
 
+    Entity(const Entity&) = delete;
+    Entity& operator=(const Entity&) = delete;
+
     void virtual DrawEntity() = 0;
 
 };

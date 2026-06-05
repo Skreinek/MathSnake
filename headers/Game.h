@@ -22,7 +22,7 @@ protected:
     Apple* apple;
     UI ui;
 
-    int gamePhase; //0 - START, 1 - GRA, 2 - GAMEOVER
+    int gamePhase; //0 - START, 1 - GRA, 2 - GAMEOVER, 3 - GAMEWON
     double currentTime, lastTime;
     std::random_device rd;
     std::mt19937 gen;
@@ -34,6 +34,14 @@ public:
         snake = new Snake(grid);
         grid.tileSize = (float)window.res/grid.dim;
     };
+
+    ~Game() {
+        delete snake;
+        delete apple;
+    };
+
+    Game(const Game&) = delete;
+    Game& operator=(const Game&) = delete;
 
     Vector2 getRandomPosition();
     bool TimeCycle();

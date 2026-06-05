@@ -18,6 +18,11 @@ public:
         SetTargetFPS(60);
     };
 
+    ~Window() { CloseWindow(); };
+
+    Window(const Window&) = delete;
+    Window& operator=(const Window&) = delete;
+
 };
 
 #endif //MATHSNAKE_WINDOW_H

@@ -1,4 +1,4 @@
-#include "UI.h"
+#include "../headers/UI.h"
 #include <string>
 
 bool UI::DrawStart() {
@@ -19,9 +19,6 @@ bool UI::DrawStart() {
 void UI::DrawGame() {
     if (startButton->isClicked)
         startButton->isClicked = false;
-
-
-
 }
 
 bool UI::DrawGameOver(int score) {
@@ -31,7 +28,7 @@ bool UI::DrawGameOver(int score) {
     DrawRectangle(0, 0, res, res, Fade(BLACK, 0.5f));
     tryAgainButton->Draw();
     std::string yourScore = "Score:"; std::string stringScore = std::to_string(score);
-    int sizeYourScore = MeasureText(yourScore.c_str(), 100);
+    int sizeYourScore = MeasureText(yourScore.c_str(), 100) + MeasureText(stringScore.c_str(), 100);
 
     DrawText(TextFormat("Score: %.d", score), res/2 - float(sizeYourScore)/2.0, res/2 - (float)100/0.8, 100, WHITE);
 
@@ -42,14 +39,11 @@ bool UI::DrawGameOver(int score) {
 }
 
 bool UI::DrawGameWon() {
-    if (tryAgainButton->isClicked)
-        return false;
-
     DrawRectangle(0, 0, res, res, Fade(WHITE, 0.5f));
-    tryAgainButton->Draw();
+    std::string youWon = "YOU WON!";
+    int sizeYouWon = MeasureText(youWon.c_str(), 100);
 
-    if (tryAgainButton->wasClicked())
-        tryAgainButton->isClicked = true;
+    DrawText(TextFormat("YOU WON!"), res/2 - float(sizeYouWon)/2.0, res/2 - (float)100/0.8, 100, BLACK);
 
     return true;
 }

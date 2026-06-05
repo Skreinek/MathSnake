@@ -1,4 +1,4 @@
-#include "Button.h"
+#include "../headers/Button.h"
 
 bool Button::wasClicked() {
     Vector2 m = GetMousePosition();
