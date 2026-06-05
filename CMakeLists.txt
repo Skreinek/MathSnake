@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 project(MathSnake CXX)
-
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(raylib REQUIRED)
+set(RAYLIB_WIN /home/skreinek/raylib-5.0_win64_mingw-w64)
 
-# Używamy zmiennej SOURCES zamiast wpisywania nazw ręcznie
 add_executable(MathSnake
         main.cpp
         cpp/Game.cpp
@@ -24,4 +22,8 @@ add_executable(MathSnake
         headers/Button.h
         cpp/Button.cpp)
 
-target_link_libraries(MathSnake raylib m pthread dl rt X11)
+target_include_directories(MathSnake PRIVATE ${RAYLIB_WIN}/include)
+target_link_libraries(MathSnake
+        ${RAYLIB_WIN}/lib/libraylib.a
+        -static-libgcc -static-libstdc++
+        -lwinmm -lgdi32 -lopengl32)
